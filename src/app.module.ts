@@ -1,10 +1,14 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { APP_GUARD } from '@nestjs/core';
+import { JwtModule } from '@nestjs/jwt';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { config } from './constant/config';
 import { EmailModule } from './email/email.module';
+import { LoginGuard } from './login.guard';
+import { PermissionGuard } from './permission.guard';
 import { RedisModule } from './redis/redis.module';
 import { Permission } from './user/entities/permission.entity';
 import { Role } from './user/entities/role.entity';
@@ -41,8 +45,32 @@ import { UserModule } from './user/user.module';
       isGlobal: true,
       envFilePath: 'src/.env',
     }),
+    JwtModule.registerAsync({
+      global: true,
+      useFactory(configService: ConfigService) {
+        return {
+          secret: configService.get(config.JWT_SECRET),
+          signOptions: {
+            expiresIn: configService.get(config.JWT_ACCESS_TOKEN_EXPIRES_TIME),
+          },
+        };
+      },
+      inject: [ConfigService],
+    }),
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+
+    {
+      provide: APP_GUARD,
+      useClass: LoginGuard,
+    },
+
+    {
+      provide: APP_GUARD,
+      useClass: PermissionGuard,
+    },
+  ],
 })
 export class AppModule {}

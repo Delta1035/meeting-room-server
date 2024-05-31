@@ -15,6 +15,10 @@ class Config {
   readonly MYSQL_SERVER_USERNAME = 'mysql_server_username';
   readonly MYSQL_SERVER_PASSWORD = 'mysql_server_password';
   readonly MYSQL_SERVER_DATABASE = 'mysql_server_database';
+
+  readonly JWT_SECRET = 'jwt_secret';
+  readonly JWT_ACCESS_TOKEN_EXPIRES_TIME = 'jwt_access_token_expires_time';
+  readonly JWT_REFRESH_TOKEN_EXPIRES_TIME = 'jwt_refresh_token_expires_time';
 }
 
 export const config = new Config();
