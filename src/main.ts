@@ -8,6 +8,10 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(new ValidationPipe());
   const configService = app.get(ConfigService);
-  await app.listen(configService.get(config.NEST_SERVER_PORT));
+  try {
+    await app.listen(configService.get(config.NEST_SERVER_PORT));
+  } catch (error) {
+    console.log('启动错误:>>>>', error);
+  }
 }
 bootstrap();

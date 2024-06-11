@@ -2,6 +2,7 @@ class Config {
   readonly REDIS_SERVER_HOST = 'redis_server_host';
   readonly REDIS_SERVER_PORT = 'redis_server_port';
   readonly REDIS_SERVER_DB = 'redis_server_db';
+  readonly REDIS_SERVER_PASSWORD = 'redis_server_password';
 
   readonly NODEMAILER_HOST = 'nodemailer_host';
   readonly NODEMAILER_PORT = 'nodemailer_port';

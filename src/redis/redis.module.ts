@@ -17,6 +17,8 @@ import { RedisService } from './redis.service';
             port: configService.get(config.REDIS_SERVER_PORT),
           },
           database: configService.get(config.REDIS_SERVER_DB),
+          // 如果设置了redis密码,别忘记了
+          password: configService.get(config.REDIS_SERVER_PASSWORD),
         });
         await client.connect();
         return client;

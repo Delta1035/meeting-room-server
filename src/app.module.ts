@@ -28,14 +28,15 @@ import { UserModule } from './user/user.module';
           username: configService.get(config.MYSQL_SERVER_USERNAME),
           password: configService.get(config.MYSQL_SERVER_PASSWORD),
           database: configService.get(config.MYSQL_SERVER_DATABASE),
+          // 不应该在生产中使用true,有可能丢失数据
           synchronize: true,
           logging: true,
           entities: [User, Role, Permission],
           poolSize: 10,
           connectorPackage: 'mysql2',
-          extra: {
-            authPlugin: 'sha256_password',
-          },
+          // extra: {
+          //   authPlugin: 'sha256_password',
+          // },
         };
       },
       inject: [ConfigService],
